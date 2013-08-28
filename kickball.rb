@@ -1,16 +1,21 @@
 require 'pry'
-#set game state at the start
+# set state at the start
 game_over = false
+game_number = 0
+games = []
 
-#enter game loop
+# begin entering team names and scores
 while game_over == false
+  # define array, hash and variables to be used
+  names_and_scores = {}
+
   team_1_name = ''
   team_2_name = ''
   team_1_score= ''
   team_2_score = ''
 
 
-  #team 1's name and their score
+  # team 1's name and their score
   while team_1_name == ''
     puts "What was team 1's name?"
     print "> "
@@ -24,8 +29,9 @@ while game_over == false
   end
 
 
-  #team 2's name and their score
-    #check that team names are unique
+
+  # team 2's name and their score
+    # check that team names are unique
   while team_2_name == '' || team_1_name == team_2_name
     puts "What was team 2's name?"
     print "> "
@@ -38,19 +44,16 @@ while game_over == false
     team_2_score = gets.chomp.to_i
   end
 
-  #extract a method with 4 arguments
-  def identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)
-    return team_1_score > team_2_score
-  end
+  # capture the names and scores into a hash
 
-  #output the winner
-  if identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)  == true
-    puts "#{team_1_name} is the victor!"
-  else
-    puts "#{team_2_name} is the victor!"
-  end
+  names_and_scores = {'team_1_name' => team_1_name, 'team_1_score' => team_1_score, 'team_2_name' => team_2_name, 'team_2_score' => team_2_score,  }
 
-  # provide option to continue
+
+  # capture the game stats into an array
+  games[game_number] = names_and_scores
+
+
+  # provide option to continue entering team names and scores
   input = ''
   while input == ''
      puts "Would you like to provide another game? (Y/N)"
@@ -59,12 +62,35 @@ while game_over == false
 
   if input.downcase == 'y'
     game_over = false
+    game_number += 1
   elsif input == 'n'
     game_over = true
-    puts "Bye!"
-    # exit game loop
+    # exit loop
     break
   end
-
 end
+
+
+  # extract a method with 4 arguments
+  def identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)
+    return team_1_score > team_2_score
+  end
+
+  count = 1
+  games.each do |game|
+    team1 = game['team_1_name']
+    team2 = game['team_2_name']
+    team1_score = game['team_1_score']
+    team2_score = game['team_2_score']
+    if identify_winner(team1, team2, team1_score, team2_score )  == true
+      puts "In game #{count}, #{team1} is the victor!"
+    else
+      puts "In game #{count}, #{team2} is the victor!"
+    end
+    count = count + 1
+  end
+
+  #output the winner
+
+
 
