@@ -2,34 +2,17 @@ require 'pry'
 # set state at the start
 game_over = false
 game_number = 0
+games = []
 
 # begin entering team names and scores
 while game_over == false
   # define array, hash and variables to be used
-  names_and_scores = {}
-  games = []
+  names_and_scores = []
+
   team_1_name = ''
   team_2_name = ''
   team_1_score= ''
   team_2_score = ''
-
-
-
-  # target data structure
-  # games = [
-  #   1 =>
-  #   {'team_1_name' => 'Sick Kicks',
-  #    'team_1_score' => 2,
-  #    'team_2_name' => 'Good Will Bunting',
-  #    'team_2_score' => 3,
-  #   },
-  #   2 =>
-  #   {'team_1_name' => 'Sick Kicks',
-  #    'team_1_score' => 5,
-  #    'team_2_name' => 'Angels in the Outfield',
-  #    'team_2_score' => 3,
-  #   }
-  # ]
 
 
   # team 1's name and their score
@@ -63,10 +46,11 @@ while game_over == false
 
   # capture the names and scores into a hash
 
-  names_and_scores[game_number] = {'team_1_name' => team_1_name, 'team_1_score' => team_1_score, 'team_2_name' => team_2_name, 'team_2_score' => team_2_score,  }
+  names_and_scores = [team_1_name, team_1_score, team_2_name, team_2_score]
 
   # capture the game stats into an array
-  games << names_and_scores
+  games[game_number] = names_and_scores
+
 
   # provide option to continue entering team names and scores
   input = ''
@@ -80,11 +64,11 @@ while game_over == false
     game_number += 1
   elsif input == 'n'
     game_over = true
-"
     # exit loop
     break
   end
 end
+
 
   # extract a method with 4 arguments
   def identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)
@@ -92,13 +76,18 @@ end
   end
 
 
-  puts games
+  games.each_with_index do |game, index|
+    #if identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)  == true
+    game_id = index + 1
+    if identify_winner(game[0], game[2], game[1], game[3])
+      puts "In game #{game_id}, #{game[0]} is the victor!"
+    else
+      puts "In game #{game_id}, #{game[2]} is the victor!"
+    end
+
+  end
 
   #output the winner
-  if identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)  == true
-    puts "In game #{}, #{team_1_name} is the victor!"
-  else
-    puts "In game #{}, #{team_2_name} is the victor!"
-  end
+
 
 
