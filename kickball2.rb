@@ -5,7 +5,6 @@ team_2_name = ''
 team_1_score= ''
 team_2_score = ''
 
-
 #team 1's name and their score
 while team_1_name == ''
   puts "What was team 1's name?"
@@ -35,14 +34,10 @@ while team_2_score == ''
 end
 
 
-def identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)
-  return team_1_score > team_2_score
-end
 
 #output the winner
-if identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)  == true
+if team_1_score > team_2_score
   puts "#{team_1_name} is the victor!"
 else
   puts "#{team_2_name} is the victor!"
 end
-
