@@ -7,7 +7,7 @@ games = []
 # begin entering team names and scores
 while game_over == false
   # define array, hash and variables to be used
-  names_and_scores = []
+  names_and_scores = {}
 
   team_1_name = ''
   team_2_name = ''
@@ -46,7 +46,8 @@ while game_over == false
 
   # capture the names and scores into a hash
 
-  names_and_scores = [team_1_name, team_1_score, team_2_name, team_2_score]
+  names_and_scores = {'team_1_name' => team_1_name, 'team_1_score' => team_1_score, 'team_2_name' => team_2_name, 'team_2_score' => team_2_score,  }
+
 
   # capture the game stats into an array
   games[game_number] = names_and_scores
@@ -75,16 +76,18 @@ end
     return team_1_score > team_2_score
   end
 
-
-  games.each_with_index do |game, index|
-    #if identify_winner(team_1_name, team_2_name, team_1_score, team_2_score)  == true
-    game_id = index + 1
-    if identify_winner(game[0], game[2], game[1], game[3])
-      puts "In game #{game_id}, #{game[0]} is the victor!"
+  count = 1
+  games.each do |game|
+    team1 = game['team_1_name']
+    team2 = game['team_2_name']
+    team1_score = game['team_1_score']
+    team2_score = game['team_2_score']
+    if identify_winner(team1, team2, team1_score, team2_score )  == true
+      puts "In game #{count}, #{team1} is the victor!"
     else
-      puts "In game #{game_id}, #{game[2]} is the victor!"
+      puts "In game #{count}, #{team2} is the victor!"
     end
-
+    count = count + 1
   end
 
   #output the winner
