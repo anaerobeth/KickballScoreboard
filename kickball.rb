@@ -1,8 +1,9 @@
 require 'pry'
+#set game state at the start
+game_over = false
 
-continue = true
-
-while continue == false
+#enter game loop
+while game_over == false
   team_1_name = ''
   team_2_name = ''
   team_1_score= ''
@@ -19,7 +20,7 @@ while continue == false
   while team_1_score == ''
     puts "What was team 1's score?"
     print "> "
-    team_1_score = gets.chomp,to_i
+    team_1_score = gets.chomp.to_i
   end
 
 
@@ -49,17 +50,21 @@ while continue == false
     puts "#{team_2_name} is the victor!"
   end
 
-
+  # provide option to continue
   input = ''
   while input == ''
      puts "Would you like to provide another game? (Y/N)"
-     input = gets.chomp.lowercase
+     input = gets.chomp
   end
 
-  if input == 'y'
-    continue = true
+  if input.downcase == 'y'
+    game_over = false
   elsif input == 'n'
-    continue = false
+    game_over = true
+    puts "Bye!"
+    # exit game loop
+    break
   end
 
 end
+
